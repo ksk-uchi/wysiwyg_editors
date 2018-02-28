@@ -1,0 +1,10 @@
+version: '2'
+services:
+    phpapache:
+        build:
+            context: ./PhpApache/
+        volumes:
+            - ./PhpApache/src:/var/www/html
+        ports:
+            - 8081:8081
+
