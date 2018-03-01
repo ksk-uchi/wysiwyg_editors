@@ -52,12 +52,27 @@
     <div id="editor"></div>
     <script type="text/javascript">
 (function () {
-    let BlockEmbed = Quill.import('blots/block/embed');
 
+    // hr 挿入機能の作成
+    let BlockEmbed = Quill.import('blots/block/embed');
     class DividerBlot extends BlockEmbed { }
     DividerBlot.blotName = 'divider';
     DividerBlot.tagName = 'hr';
     Quill.register(DividerBlot);
+
+
+    // 画像挿入機能の拡張
+    let ImageBlot = Quill.import('formats/image');
+    class MyImageBlot extends ImageBlot {
+        static create (value) {
+            // S3 にファイルアップロードするならここかな？
+            // value に S3 の URL を格納してあげたらそれで良い気がする。
+            return super.create(value);
+        }
+    }
+    MyImageBlot.blotName = 'image';
+    MyImageBlot.tagName = 'IMG';
+    Quill.register(MyImageBlot, true);
 
     const options = {
         modules: {
